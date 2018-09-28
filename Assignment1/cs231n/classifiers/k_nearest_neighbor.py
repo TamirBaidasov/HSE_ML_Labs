@@ -133,7 +133,7 @@ class KNearestNeighbor(object):
         """
         num_test = dists.shape[0]
         y_pred = np.zeros(num_test)
-        print(k)
+        #print(k)
         for i in range(num_test):
         # A list of length k storing the labels of the k nearest neighbors to
         # the ith test point.
@@ -145,9 +145,9 @@ class KNearestNeighbor(object):
         # neighbors. Store these labels in closest_y.                           #
         # Hint: Look up the function numpy.argsort.                             #
         #########################################################################
-            print(dists[i])
+            #print(dists[i])
             nearest_neighbours = np.argsort(dists[i])[:k]
-            print(nearest_neighbours)
+            #print(nearest_neighbours)
             closest_y = self.y_train[nearest_neighbours]
         
         #########################################################################
@@ -157,7 +157,7 @@ class KNearestNeighbor(object):
         # Store this label in y_pred[i]. Break ties by choosing the smaller     #
         # label.                                                                #
         #########################################################################
-            print(closest_y)
+            #print(closest_y)
             y_pred[i] = np.argmax(np.bincount(closest_y))
         #########################################################################
         #                           END OF YOUR CODE                            # 
