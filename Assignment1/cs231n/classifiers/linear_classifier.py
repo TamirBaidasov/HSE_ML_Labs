@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import numpy as np
 from cs231n.classifiers.linear_svm import *
 from cs231n.classifiers.softmax import *
@@ -51,7 +49,9 @@ class LinearClassifier(object):
       # Hint: Use np.random.choice to generate indices. Sampling with         #
       # replacement is faster than sampling without replacement.              #
       #########################################################################
-      pass
+      sample_index = np.random.choice(num_train, batch_size, replace = False)
+      X_batch = X[sample_index, :]
+      y_batch = y[sample_index]
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -65,13 +65,13 @@ class LinearClassifier(object):
       # TODO:                                                                 #
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
-      pass
+      self.W += -learning_rate * grad
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
 
       if verbose and it % 100 == 0:
-        print('iteration %d / %d: loss %f' % (it, num_iters, loss))
+        print ('iteration %d / %d: loss %f' % (it, num_iters, loss))
 
     return loss_history
 
@@ -81,20 +81,20 @@ class LinearClassifier(object):
     data points.
 
     Inputs:
-    - X: A numpy array of shape (N, D) containing training data; there are N
-      training samples each of dimension D.
+    - X: D x N array of training data. Each column is a D-dimensional point.
 
     Returns:
     - y_pred: Predicted labels for the data in X. y_pred is a 1-dimensional
       array of length N, and each element is an integer giving the predicted
       class.
     """
-    y_pred = np.zeros(X.shape[0])
+    y_pred = np.zeros(X.shape[1])
     ###########################################################################
     # TODO:                                                                   #
     # Implement this method. Store the predicted labels in y_pred.            #
     ###########################################################################
-    pass
+    score = X.dot(self.W)
+    y_pred = np.argmax(score,axis = 1)
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
@@ -130,4 +130,3 @@ class Softmax(LinearClassifier):
 
   def loss(self, X_batch, y_batch, reg):
     return softmax_loss_vectorized(self.W, X_batch, y_batch, reg)
-
